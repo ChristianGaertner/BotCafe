@@ -18,7 +18,7 @@ public class ChatDisplayer extends JFrame {
     private JTextArea textArea;
     
     public ChatDisplayer(String title) {
-
+        
         textArea = new JTextArea(30, 80);
         JScrollPane scroll = new JScrollPane (textArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
