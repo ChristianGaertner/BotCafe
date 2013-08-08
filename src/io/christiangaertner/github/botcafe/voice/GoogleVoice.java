@@ -2,7 +2,10 @@ package io.christiangaertner.github.botcafe.voice;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
@@ -67,7 +70,22 @@ public class GoogleVoice {
     }
 
     private URL makeUrl(String txt) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        try {
+            txt = URLEncoder.encode(txt.trim(), "UTF-8");
+            String url;
+            
+            url = GOOGLE_URL.replace("%lang%", lang.get());
+            url = url.replace("%txt%", txt);
+            
+            return new URL(url);
+            
+        } catch (MalformedURLException ex) {
+            System.err.println("Error with GoogleVoice (URL): " + ex.getMessage());
+            return null;
+        } catch (UnsupportedEncodingException ex) {
+            System.err.println("Error with GoogleVoice (TXT)[" + txt + "]: " + ex.getMessage());
+            return null;
+        }
     }
     
     private ArrayList<String> splitToChunks(String txt) {

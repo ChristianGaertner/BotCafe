@@ -6,6 +6,8 @@ import com.google.code.chatterbotapi.ChatterBotSession;
 import com.google.code.chatterbotapi.ChatterBotType;
 import io.christiangaertner.github.botcafe.BotConversation.Message;
 import io.christiangaertner.github.botcafe.ui.ChatDisplayer;
+import io.christiangaertner.github.botcafe.voice.GoogleVoice;
+import io.christiangaertner.github.botcafe.voice.GoogleVoice.Lang;
 import javax.swing.JOptionPane;
 
 /**
@@ -30,6 +32,7 @@ public class BotCafe {
     private String botName2;
 
     public BotCafe() throws Exception {
+        new GoogleVoice(Lang.GERMAN).read("Hallo");
         showNamePrompts();
         setUpBots();
         setUpUi();
