@@ -24,4 +24,8 @@ public class Bot {
     public String getNextMessage(String lastMessage) throws Exception {
         return bot.think(lastMessage);
     }
+    
+    public void setName(String n) {
+        name = n;
+    }
 }
