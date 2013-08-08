@@ -9,23 +9,43 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 public class BotConversation extends Thread {
 
+    /**
+     * A Message of a bot
+     */
     public class Message {
 
+        /**
+         * The assoc Bot of the message.
+         */
         public Bot bot;
+        /**
+         * The message itself.
+         */
         public String msg;
     }
     private ArrayDeque<Bot> bots = new ArrayDeque<Bot>();
     private LinkedBlockingQueue<Message> messages = new LinkedBlockingQueue<Message>();
     private String lastMessage;
 
+    /**
+     * Constructor.
+     * @param greeting
+     */
     public BotConversation(String greeting) {
         lastMessage = greeting;
     }
 
+    /**
+     * Add a bot to the conversation.
+     * @param b
+     */
     public void addBot(Bot b) {
         bots.add(b);
     }
 
+    /**
+     * Run the thread.
+     */
     @Override
     public void run() {
         if (bots.isEmpty()) {
@@ -58,6 +78,10 @@ public class BotConversation extends Thread {
         }
     }
     
+    /**
+     * Get the next message from the buffer.
+     * @return
+     */
     public Message getMessage() {
         try {
             return messages.take();
@@ -66,7 +90,12 @@ public class BotConversation extends Thread {
             return null;
         }
     }
-
+    
+    /**
+     * Wrapper for isInterrupted
+     * (but inverted)
+     * @return !isInterrupted
+     */
     private boolean running() {
         return !isInterrupted();
     }

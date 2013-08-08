@@ -9,8 +9,6 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 
@@ -20,21 +18,45 @@ import javazoom.jl.player.Player;
  */
 public class GoogleVoice {
 
+    // Essential, otherwise Google will throw a 403
     static {
         System.setProperty("http.agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.7; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2");
     }
 
+    /**
+     * The languages avaible (for this class only!)
+     */
     public enum Lang {
 
+        /**
+         * Deutsch - de - German
+         */
         GERMAN("de"),
+        /**
+         * English - en - British English
+         */
         ENGLISH("en"),
+        /**
+         * English - en_us - American English
+         */
         US("en_us");
+        /**
+         * The language selected
+         */
         private String lang;
-
+        
+        /**
+         * Constructor.
+         * @param l (The language string)
+         */
         private Lang(String l) {
             lang = l;
         }
 
+        /**
+         * Returns the language string
+         * @return
+         */
         public String get() {
             return lang;
         }
@@ -43,10 +65,19 @@ public class GoogleVoice {
     private static final String GOOGLE_URL = "http://translate.google.com/translate_tts?tl=%lang%&q=%txt%";
     private final Lang lang;
 
+    /**
+     * Constructor.
+     * @param l (The language string)
+     */
     public GoogleVoice(Lang l) {
         lang = l;
     }
 
+    /**
+     * Plays the given text out loud.
+     * @uses playText
+     * @param txt
+     */
     public void read(String txt) {
         if (txt.length() > MAX_TXT_LENGTH) {
             Iterator<String> i = splitToChunks(txt).iterator();
@@ -58,7 +89,11 @@ public class GoogleVoice {
             playText(txt);
         }
     }
-
+    
+    /**
+     * Downloads audio and plays it
+     * @param txt 
+     */
     private void playText(String txt) {
         try {
             URLConnection con = makeUrl(txt).openConnection();
@@ -74,7 +109,12 @@ public class GoogleVoice {
         }
 
     }
-
+    
+    /**
+     * Encodes and converts a string to an URL object
+     * @param txt
+     * @return The new URL object
+     */
     private URL makeUrl(String txt) {
         try {
             txt = URLEncoder.encode(txt.trim(), "UTF-8");
@@ -93,7 +133,12 @@ public class GoogleVoice {
             return null;
         }
     }
-
+    
+    /**
+     * Splits large Strings into a smaller pieces of MAX_TXT_LENGTH
+     * @param txt
+     * @return The chunks
+     */
     private ArrayList<String> splitToChunks(String txt) {
         String[] words = txt.split(" ");
 

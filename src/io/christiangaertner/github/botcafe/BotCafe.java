@@ -21,24 +21,47 @@ public class BotCafe {
 
     /**
      * @param args the command line arguments
+     * @throws Exception  
      */
     public static void main(String[] args) throws Exception {
         BotCafe cafe = new BotCafe();
         cafe.start();
     }
     
+    /**
+     * The conversation instance
+     */
     private BotConversation conversation;
+    /**
+     * Only purpose is to have the bots speak diffrent "langs"
+     */
     private HashMap<Bot, GoogleVoice> voices = new HashMap<Bot, GoogleVoice>();
     
+    /**
+     * cleaverBot' s name
+     */
     private String botName1;
+    /**
+     * pandoraBot's name
+     */
     private String botName2;
 
+    /**
+     * Constructor.
+     * @uses showNamePrompts
+     * @uses setUpBots
+     * @uses setUpUi
+     * @throws Exception
+     */
     public BotCafe() throws Exception {
         showNamePrompts();
         setUpBots();
         setUpUi();
     }
 
+    /**
+     * Start the conversation thread
+     */
     public void start() {
         conversation.start();
         while (true) {
@@ -53,6 +76,10 @@ public class BotCafe {
         }
     }
     
+    /**
+     * Shows JOptionPanes for User-input
+     * Default values are "CleverBot" and"PandoraBot"
+     */
     private void showNamePrompts() {
         botName1 = JOptionPane.showInputDialog("Bot Name 1:");
         botName2 = JOptionPane.showInputDialog("Bot Name 2:");
@@ -64,7 +91,11 @@ public class BotCafe {
             botName2 = "PandoraBot";
         }
     }
-
+    
+    /**
+     * Set up the bot factorys, etc.
+     * @throws Exception 
+     */
     private void setUpBots() throws Exception {
         ChatterBotFactory factory = new ChatterBotFactory();
 
@@ -85,7 +116,10 @@ public class BotCafe {
         voices.put(pandoraBot, new GoogleVoice(Lang.US));
         
     }
-
+    
+    /**
+     * Initiates the JFrame
+     */
     private void setUpUi() {
         ui = new ChatDisplayer("BotCafe");
     }
