@@ -34,7 +34,6 @@ public class BotCafe {
     private String botName2;
 
     public BotCafe() throws Exception {
-        new GoogleVoice(Lang.GERMAN).read("Willkommen im BotCafe!");
         showNamePrompts();
         setUpBots();
         setUpUi();
