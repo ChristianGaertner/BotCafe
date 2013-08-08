@@ -30,8 +30,8 @@ public class BotCafe {
     private String botName2;
 
     public BotCafe() throws Exception {
-        setUpBots();
         showNamePrompts();
+        setUpBots();
         setUpUi();
     }
 
