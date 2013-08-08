@@ -8,6 +8,7 @@ import io.christiangaertner.github.botcafe.BotConversation.Message;
 import io.christiangaertner.github.botcafe.ui.ChatDisplayer;
 import io.christiangaertner.github.botcafe.voice.GoogleVoice;
 import io.christiangaertner.github.botcafe.voice.GoogleVoice.Lang;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 
 /**
@@ -27,12 +28,13 @@ public class BotCafe {
     }
     
     private BotConversation conversation;
+    private HashMap<Bot, GoogleVoice> voices = new HashMap<Bot, GoogleVoice>();
     
     private String botName1;
     private String botName2;
 
     public BotCafe() throws Exception {
-        new GoogleVoice(Lang.GERMAN).read("Hallo");
+        new GoogleVoice(Lang.GERMAN).read("Willkommen im BotCafe!");
         showNamePrompts();
         setUpBots();
         setUpUi();
@@ -42,9 +44,11 @@ public class BotCafe {
         conversation.start();
         while (true) {
             Message msg = conversation.getMessage();
-
+            
             ui.addMessage(msg);
-
+            GoogleVoice v = voices.get(msg.bot);
+            v.read(msg.msg);
+            
             System.out.println(msg.bot + "> " + msg.msg);
 
         }
@@ -53,6 +57,13 @@ public class BotCafe {
     private void showNamePrompts() {
         botName1 = JOptionPane.showInputDialog("Bot Name 1:");
         botName2 = JOptionPane.showInputDialog("Bot Name 2:");
+        if (botName1.isEmpty()) {
+            botName1 = "CleverBot";
+        }
+        
+        if (botName2.isEmpty()) {
+            botName2 = "PandoraBot";
+        }
     }
 
     private void setUpBots() throws Exception {
@@ -70,6 +81,10 @@ public class BotCafe {
         conversation = new BotConversation("Hey!");
         conversation.addBot(cleverBot);
         conversation.addBot(pandoraBot);
+        
+        voices.put(cleverBot, new GoogleVoice(Lang.ENGLISH));
+        voices.put(pandoraBot, new GoogleVoice(Lang.US));
+        
     }
 
     private void setUpUi() {

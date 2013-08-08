@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -18,6 +19,10 @@ import javazoom.jl.player.Player;
  * @author Christian
  */
 public class GoogleVoice {
+
+    static {
+        System.setProperty("http.agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.7; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2");
+    }
 
     public enum Lang {
 
@@ -56,11 +61,12 @@ public class GoogleVoice {
 
     private void playText(String txt) {
         try {
-            InputStream is = makeUrl(txt).openConnection().getInputStream();
-            
+            URLConnection con = makeUrl(txt).openConnection();
+            InputStream is = con.getInputStream();
+
             Player pl = new Player(is);
             pl.play();
-            
+
         } catch (IOException ex) {
             System.err.println("Error with GoogleVoice (URL): " + ex.getMessage());
         } catch (JavaLayerException ex) {
@@ -73,12 +79,12 @@ public class GoogleVoice {
         try {
             txt = URLEncoder.encode(txt.trim(), "UTF-8");
             String url;
-            
+
             url = GOOGLE_URL.replace("%lang%", lang.get());
             url = url.replace("%txt%", txt);
-            
+
             return new URL(url);
-            
+
         } catch (MalformedURLException ex) {
             System.err.println("Error with GoogleVoice (URL): " + ex.getMessage());
             return null;
@@ -87,25 +93,25 @@ public class GoogleVoice {
             return null;
         }
     }
-    
+
     private ArrayList<String> splitToChunks(String txt) {
         String[] words = txt.split(" ");
-        
+
         ArrayList<String> chunks = new ArrayList<String>();
-        
+
         String toAdd = "";
         for (String word : words) {
             if ((toAdd + word).length() > MAX_TXT_LENGTH && !toAdd.isEmpty()) {
-                
+
                 chunks.add(toAdd.trim());
-                
+
                 toAdd = "";
-                
+
             }
-            
+
             toAdd += word;
         }
-        
+
         return chunks;
     }
 }
