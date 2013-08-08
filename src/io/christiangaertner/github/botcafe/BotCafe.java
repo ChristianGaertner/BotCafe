@@ -4,6 +4,7 @@ import com.google.code.chatterbotapi.ChatterBot;
 import com.google.code.chatterbotapi.ChatterBotFactory;
 import com.google.code.chatterbotapi.ChatterBotSession;
 import com.google.code.chatterbotapi.ChatterBotType;
+import io.christiangaertner.github.botcafe.BotConversation.Message;
 
 /**
  *
@@ -16,10 +17,13 @@ public class BotCafe {
      */
     public static void main(String[] args) throws Exception {
         BotCafe cafe = new BotCafe();
+
+        cafe.start();
     }
+    private BotConversation conversation;
 
     public BotCafe() throws Exception {
-        
+
         ChatterBotFactory factory = new ChatterBotFactory();
 
         ChatterBot bot1 = factory.create(ChatterBotType.CLEVERBOT);
@@ -28,15 +32,22 @@ public class BotCafe {
         ChatterBot bot2 = factory.create(ChatterBotType.PANDORABOTS, "b0dafd24ee35a477");
         ChatterBotSession bot2session = bot2.createSession();
 
-        String s = "Hi";
+        Bot cleverBot = new Bot("John", bot1session);
+        Bot pandoraBot = new Bot("Jane", bot2session);
+
+        conversation = new BotConversation("Hey!");
+        conversation.addBot(cleverBot);
+        conversation.addBot(pandoraBot);
+    }
+
+    public void start() {
+        conversation.start();
+
         while (true) {
+            Message msg = conversation.getMessage();
 
-            System.out.println("bot1> " + s);
+            System.out.println(msg.bot + "> " + msg.msg);
 
-            s = bot2session.think(s);
-            System.out.println("bot2> " + s);
-
-            s = bot1session.think(s);
         }
     }
 }
