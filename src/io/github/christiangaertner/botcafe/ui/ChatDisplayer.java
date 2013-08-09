@@ -1,6 +1,6 @@
-package io.christiangaertner.github.botcafe.ui;
+package io.github.christiangaertner.botcafe.ui;
 
-import io.christiangaertner.github.botcafe.BotConversation.Message;
+import io.github.christiangaertner.botcafe.BotConversation.Message;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;

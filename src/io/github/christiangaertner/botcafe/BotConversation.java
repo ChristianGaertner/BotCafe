@@ -1,4 +1,4 @@
-package io.christiangaertner.github.botcafe;
+package io.github.christiangaertner.botcafe;
 
 import java.util.ArrayDeque;
 import java.util.concurrent.LinkedBlockingQueue;

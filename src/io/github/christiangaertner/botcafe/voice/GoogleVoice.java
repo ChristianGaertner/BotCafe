@@ -1,4 +1,4 @@
-package io.christiangaertner.github.botcafe.voice;
+package io.github.christiangaertner.botcafe.voice;
 
 import java.io.IOException;
 import java.io.InputStream;

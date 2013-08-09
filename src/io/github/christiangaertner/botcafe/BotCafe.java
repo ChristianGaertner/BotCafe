@@ -1,13 +1,13 @@
-package io.christiangaertner.github.botcafe;
+package io.github.christiangaertner.botcafe;
 
 import com.google.code.chatterbotapi.ChatterBot;
 import com.google.code.chatterbotapi.ChatterBotFactory;
 import com.google.code.chatterbotapi.ChatterBotSession;
 import com.google.code.chatterbotapi.ChatterBotType;
-import io.christiangaertner.github.botcafe.BotConversation.Message;
-import io.christiangaertner.github.botcafe.ui.ChatDisplayer;
-import io.christiangaertner.github.botcafe.voice.GoogleVoice;
-import io.christiangaertner.github.botcafe.voice.GoogleVoice.Lang;
+import io.github.christiangaertner.botcafe.BotConversation.Message;
+import io.github.christiangaertner.botcafe.ui.ChatDisplayer;
+import io.github.christiangaertner.botcafe.voice.GoogleVoice;
+import io.github.christiangaertner.botcafe.voice.GoogleVoice.Lang;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 

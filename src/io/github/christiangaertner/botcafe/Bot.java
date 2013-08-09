@@ -1,4 +1,4 @@
-package io.christiangaertner.github.botcafe;
+package io.github.christiangaertner.botcafe;
 
 import com.google.code.chatterbotapi.ChatterBotSession;
 
