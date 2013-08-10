@@ -1,4 +1,5 @@
 /build/
+/nbproject/
 /dist/
 manifest.mf
 .DS_STORE
