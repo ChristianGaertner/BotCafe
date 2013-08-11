@@ -5,8 +5,8 @@ import com.google.code.chatterbotapi.ChatterBotFactory;
 import com.google.code.chatterbotapi.ChatterBotSession;
 import com.google.code.chatterbotapi.ChatterBotType;
 import io.github.christiangaertner.botcafe.BotConversation.Message;
+import io.github.christiangaertner.botcafe.ui.ChatDisplayer;
 import io.github.christiangaertner.botcafe.ui.ChatDisplayerBase;
-import io.github.christiangaertner.botcafe.ui.ChatDisplayerSleek;
 import io.github.christiangaertner.botcafe.voice.GoogleVoice;
 import io.github.christiangaertner.botcafe.voice.GoogleVoice.Lang;
 import java.util.HashMap;
@@ -121,6 +121,6 @@ public class BotCafe {
      * Initiates the JFrame
      */
     private void setUpUi() {
-        ui = new ChatDisplayerSleek("BotCafe", this);
+        ui = new ChatDisplayer("BotCafe");
     }
 }
