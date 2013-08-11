@@ -1,6 +1,6 @@
 package io.github.christiangaertner.botcafe.ui;
 
-import io.github.christiangaertner.botcafe.BotConversation.Message;
+import io.github.christiangaertner.botcafe.BotConversation;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -9,7 +9,7 @@ import javax.swing.JTextArea;
  *
  * @author Christian
  */
-public class ChatDisplayer extends JFrame {
+public class ChatDisplayer extends ChatDisplayerBase {
 
     private JTextArea textArea;
 
@@ -31,35 +31,14 @@ public class ChatDisplayer extends JFrame {
         setVisible(true);
         pack();
     }
-
-    /**
-     * Append to the text field.
-     *
-     * @param msg
-     */
-    public void addMessage(Message msg) {
-        appendString(msg.bot + "> " + msg.msg);
-    }
-
-    /**
-     * Append to the text field.
-     * @param name
-     * @param msg
-     */
-    public void addMessage(String name, String msg) {
-        appendString(name + "> " + msg);
-    }
-    
+  
     /**
      * Append to the text field (raw).
+     *
      * @param txt
      */
+    @Override
     public void addMessage(String txt) {
-        appendString(txt);
-    }
-
-    private void appendString(String s) {
-        textArea.append(s + "\n");
-        textArea.setCaretPosition(textArea.getDocument().getLength());
+        appendString(txt, textArea);
     }
 }

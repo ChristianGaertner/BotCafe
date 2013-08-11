@@ -5,11 +5,11 @@ import com.google.code.chatterbotapi.ChatterBotFactory;
 import com.google.code.chatterbotapi.ChatterBotSession;
 import com.google.code.chatterbotapi.ChatterBotType;
 import io.github.christiangaertner.botcafe.BotConversation.Message;
-import io.github.christiangaertner.botcafe.ui.ChatDisplayer;
+import io.github.christiangaertner.botcafe.ui.ChatDisplayerBase;
+import io.github.christiangaertner.botcafe.ui.ChatDisplayerSleek;
 import io.github.christiangaertner.botcafe.voice.GoogleVoice;
 import io.github.christiangaertner.botcafe.voice.GoogleVoice.Lang;
 import java.util.HashMap;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,8 +17,9 @@ import javax.swing.JOptionPane;
  */
 public class BotCafe {
 
-    private ChatDisplayer ui;
-
+    private Boolean playSound;
+    private ChatDisplayerBase ui;
+    private String uiType;
     /**
      * @param args the command line arguments
      * @throws Exception  
@@ -54,9 +55,12 @@ public class BotCafe {
      * @throws Exception
      */
     public BotCafe() throws Exception {
-        showNamePrompts();
+        botName1 = "CleverBot";
+        botName2 = "PandoraBot";
+        
         setUpBots();
         setUpUi();
+        playSound(true);
     }
 
     /**
@@ -68,29 +72,25 @@ public class BotCafe {
             Message msg = conversation.getMessage();
             
             ui.addMessage(msg);
-            GoogleVoice v = voices.get(msg.bot);
-            v.read(msg.msg);
+            
+            if (playSound()) {
+                GoogleVoice v = voices.get(msg.bot);
+                v.read(msg.msg);
+            }
             
             System.out.println(msg.bot + "> " + msg.msg);
 
         }
     }
     
-    /**
-     * Shows JOptionPanes for User-input
-     * Default values are "CleverBot" and"PandoraBot"
-     */
-    private void showNamePrompts() {
-        botName1 = JOptionPane.showInputDialog("Bot Name 1:");
-        botName2 = JOptionPane.showInputDialog("Bot Name 2:");
-        if (botName1.isEmpty()) {
-            botName1 = "CleverBot";
-        }
-        
-        if (botName2.isEmpty()) {
-            botName2 = "PandoraBot";
-        }
+    public void playSound(Boolean b) {
+        playSound = b;
     }
+    
+    public Boolean playSound() {
+        return playSound;
+    }
+
     
     /**
      * Set up the bot factorys, etc.
@@ -121,6 +121,6 @@ public class BotCafe {
      * Initiates the JFrame
      */
     private void setUpUi() {
-        ui = new ChatDisplayer("BotCafe");
+        ui = new ChatDisplayerSleek("BotCafe", this);
     }
 }

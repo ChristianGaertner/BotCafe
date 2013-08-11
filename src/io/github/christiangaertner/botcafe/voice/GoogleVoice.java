@@ -98,7 +98,7 @@ public class GoogleVoice {
         try {
             URLConnection con = makeUrl(txt).openConnection();
             InputStream is = con.getInputStream();
-
+                
             Player pl = new Player(is);
             pl.play();
 
